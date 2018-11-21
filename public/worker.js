@@ -1,5 +1,5 @@
 // Flag for enabling cache in production
-var doCache = false;
+var doCache = true;
 var CACHE_NAME = 'aasaan-assignment';
 // Delete old caches
 self.addEventListener('activate', event => {
