@@ -1,4 +1,5 @@
 import React from 'react';
+import './JobsTable.css';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -89,9 +90,7 @@ class SimpleTable extends React.Component {
     this.state = {
       jobSelected : null,
       open:false
-    };
-
-    // This binding is necessary to make `this` work in the callback
+    };    
     this.onJobClick = this.onJobClick.bind(this);
   }  
 
