@@ -1,4 +1,12 @@
+# Aasaan assignment
+
+This project is a one page application that displays all jobs and it's details fetched from https://etmdb.com/graphql.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## External packages used 
+* Apollo (https://www.apollographql.com/) : query Graphql.
+* Material-UI (https://material-ui.com/) : UI design.
 
 ## Available Scripts
 
