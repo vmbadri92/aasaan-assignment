@@ -22,7 +22,96 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { ApolloProvider } from "react-apollo";
 
-// fetch createdata
+// helper functions
+////////////////////////////////////////////////
+function parseString (string, key) {
+
+  if (string) {
+    var parsedString = parseCode(string,key);
+
+    if (key === 'description') {
+      return <div dangerouslySetInnerHTML={{ __html: string }} />
+    }
+    
+    return parsedString;    
+  }  
+}
+
+function parseCamelCase (string) {
+  if (string) {
+    return string.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); })
+  }  
+}
+
+function parseCode (string, key) {  
+  let ageDecypher = {
+    A_1:'Any Age',
+    A_2:'Under 13',
+    A_3:'13-17',
+    A_4:'18-24',
+    A_5:'25-34',
+    A_6:'50-69',
+    A_6_6:'50-69',
+    A_7:'Over 18',
+    A_8:'16-65'
+  }
+
+  let locationDecypher = {
+    A_1:'Addis Ababa',
+    A_2:'Adama',
+    A_3:'Gondar',
+    A_4:'Mekele',
+    A_5:'Hawassa',
+    A_6:'Bahir Dar',
+    A_7:'Dire Dawa',
+    A_8:'Dessie',
+    A_9:'Jimma',
+    A_10:'Jijiga',
+    A_11:'Shashamane',A_12:'Arba Minch',
+    A_13:'Hosaena',
+    A_14:'Woliso',
+    A_15:'Asmara',
+    A_16:'Debre Birhan',
+    A_17:'Asella',
+    A_18:'Harar',
+    A_19:'Dila',
+    A_20:'Nekemte',
+    A_21:'Unspecified'
+  }
+
+  let productionTypeDecypher = {
+    A_1:'Feature',
+    A_2:'Documentary',
+    A_3:'TV-Series',
+    A_4:'Short film',
+    A_5:'Silent film',
+    A_6:'Biography',
+    A_7:'Other type'
+  }
+
+  let genderMfDecypher = {
+    MALE:'Male',
+    FEMALE:'Female',
+    NOTSPECIFIED:'Not specified'
+  }
+
+  let cypher = {
+    ageLevel:ageDecypher,
+    location:locationDecypher,
+    productionType:productionTypeDecypher,
+    genderMf:genderMfDecypher
+
+  }
+
+  if (cypher[key]) {    
+    return (cypher[key][string]||'Not specified');
+  } else {
+    return string;
+  }  
+}
+////////////////////////////////////////////////
+
+// fetch data
 const client = new ApolloClient({
   uri: "https://etmdb.com/graphql"
 });
@@ -121,94 +210,6 @@ function GetNestedList(props) {
       </List>
     </Collapse>
   );
-}
-
-// helper functions
-
-function parseString (string, key) {
-
-  if (string) {
-    var parsedString = parseCode(string,key);
-
-    if (key === 'description') {
-      return <div dangerouslySetInnerHTML={{ __html: string }} />
-    }
-    
-    return parsedString;    
-  }  
-}
-
-function parseCamelCase (string) {
-  if (string) {
-    return string.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); })
-  }  
-}
-
-function parseCode (string, key) {  
-  let ageDecypher = {
-      A_1:'Any Age',
-      A_2:'Under 13',
-      A_3:'13-17',
-      A_4:'18-24',
-      A_5:'25-34',
-      A_6:'50-69',
-      A_6_6:'50-69',
-      A_7:'Over 18',
-      A_8:'16-65'
-    }
-
-  let locationDecypher = {
-    A_1:'Addis Ababa',
-    A_2:'Adama',
-    A_3:'Gondar',
-    A_4:'Mekele',
-    A_5:'Hawassa',
-    A_6:'Bahir Dar',
-    A_7:'Dire Dawa',
-    A_8:'Dessie',
-    A_9:'Jimma',
-    A_10:'Jijiga',
-    A_11:'Shashamane',A_12:'Arba Minch',
-    A_13:'Hosaena',
-    A_14:'Woliso',
-    A_15:'Asmara',
-    A_16:'Debre Birhan',
-    A_17:'Asella',
-    A_18:'Harar',
-    A_19:'Dila',
-    A_20:'Nekemte',
-    A_21:'Unspecified'
-  }
-
-  let productionTypeDecypher = {
-    A_1:'Feature',
-    A_2:'Documentary',
-    A_3:'TV-Series',
-    A_4:'Short film',
-    A_5:'Silent film',
-    A_6:'Biography',
-    A_7:'Other type'
-  }
-
-  let genderMfDecypher = {
-    MALE:'Male',
-    FEMALE:'Female',
-    NOTSPECIFIED:'Not specified'
-  }
-
-  let cypher = {
-    ageLevel:ageDecypher,
-    location:locationDecypher,
-    productionType:productionTypeDecypher,
-    genderMf:genderMfDecypher
-
-  }
-
-  if (cypher[key]) {    
-    return (cypher[key][string]||'Not specified');
-  } else {
-    return string;
-  }  
 }
 
 const styles = theme => ({
