@@ -32,6 +32,7 @@ self.addEventListener('install', function(event) {
                 '.',
                 'index.html',
                 'https://fonts.googleapis.com/css?family=Roboto:300,400,500',
+                'https://fonts.googleapis.com/icon?family=Material+Icons'
               ];
               cache.addAll(urlsToCache);
             })
